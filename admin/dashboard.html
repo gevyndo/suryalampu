@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Admin — Suryalampu</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+
+<body>
+
+  <div class="admin-layout" id="adminDashboard">
+
+    <!-- ══════════════ SIDEBAR ══════════════ -->
+    <aside class="admin-sidebar" role="navigation" aria-label="Admin sidebar">
+
+      <a href="/" class="admin-sidebar__logo" title="Kembali ke toko">
+        <div class="admin-sidebar__logo-icon" aria-hidden="true">💡</div>
+        <div>
+          <div class="admin-sidebar__logo-name">Suryalampu</div>
+          <div class="admin-sidebar__logo-sub">Admin Panel</div>
+        </div>
+      </a>
+
+      <nav class="admin-sidebar__nav">
+        <button class="admin-nav-item active js-tab" data-tab="tab-overview" id="tabOverviewBtn">
+          <span class="nav-icon">📊</span> Overview
+        </button>
+        <button class="admin-nav-item js-tab" data-tab="tab-add" id="tabAddBtn">
+          <span class="nav-icon">➕</span> Tambah Produk
+        </button>
+        <a href="/" class="admin-nav-item" style="margin-top:auto;">
+          <span class="nav-icon">🏠</span> Lihat Toko
+        </a>
+      </nav>
+
+      <div class="admin-sidebar__footer">
+        <div class="admin-sidebar__user">
+          <div class="admin-sidebar__avatar" aria-hidden="true">A</div>
+          <div>
+            <div class="admin-sidebar__uname">Administrator</div>
+            <div class="admin-sidebar__urole">Super Admin</div>
+          </div>
+        </div>
+        <button class="btn-logout js-logout" id="logoutBtn">🚪 Keluar</button>
+      </div>
+    </aside>
+
+    <!-- ══════════════ MAIN CONTENT ══════════════ -->
+    <div class="admin-main">
+
+      <!-- Header -->
+      <header class="admin-header">
+        <div>
+          <div class="admin-header__title" id="adminHeaderTitle">📊 Overview</div>
+          <div class="admin-header__sub">Selamat datang di panel admin Suryalampu</div>
+        </div>
+        <div style="display:flex;gap:.6rem;align-items:center;">
+          <a href="/" class="btn-admin btn-admin-ghost"
+            style="font-size:.83rem;padding:.55em 1em;text-decoration:none;">
+            🏠 Lihat Toko
+          </a>
+          <button class="btn-admin btn-admin-danger js-logout" style="font-size:.83rem;padding:.55em 1em;"
+            id="logoutBtn2">
+            🚪 Keluar
+          </button>
+        </div>
+      </header>
+
+      <!-- ── TAB: OVERVIEW ── -->
+      <div class="admin-content js-tab-panel" id="tab-overview">
+
+        <!-- Stat cards -->
+        <div class="admin-stats">
+          <div class="admin-stat-card">
+            <div class="admin-stat-icon yellow" aria-hidden="true">📦</div>
+            <div>
+              <div class="admin-stat-num js-product-count">0</div>
+              <div class="admin-stat-label">Total Produk</div>
+            </div>
+          </div>
+          <div class="admin-stat-card">
+            <div class="admin-stat-icon blue" aria-hidden="true">🛒</div>
+            <div>
+              <div class="admin-stat-num">Online</div>
+              <div class="admin-stat-label">Status Toko</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick actions -->
+        <div class="admin-panel" style="margin-bottom:1.5rem;">
+          <div class="admin-panel__head">
+            <div class="admin-panel__title">⚡ Aksi Cepat</div>
+          </div>
+          <div class="admin-panel__body" style="display:flex;gap:.8rem;flex-wrap:wrap;">
+            <button class="btn-admin btn-admin-primary js-tab" data-tab="tab-add">➕ Tambah Produk</button>
+            <button class="btn-admin btn-admin-ghost js-tab" data-tab="tab-products">📦 Kelola Produk</button>
+            <a href="/" target="_blank" class="btn-admin btn-admin-ghost" style="text-decoration:none;">🔗 Buka Toko</a>
+            <a href="/product" target="_blank" class="btn-admin btn-admin-ghost" style="text-decoration:none;">🛒
+              Halaman Produk</a>
+          </div>
+        </div>
+
+        <!-- Recent products preview -->
+        <div class="admin-panel">
+          <div class="admin-panel__head">
+            <div class="admin-panel__title">📋 Produk Terbaru</div>
+            <button class="btn-admin btn-admin-ghost js-tab" data-tab="tab-products"
+              style="font-size:.83rem;padding:.45em .9em;">
+              Lihat Semua
+            </button>
+          </div>
+          <div class="admin-panel__body">
+            <div id="overviewProductList" class="product-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── TAB: MANAGE PRODUCTS ── -->
+      <div class="admin-content js-tab-panel hidden" id="tab-products">
+        <div class="admin-panel">
+          <div class="admin-panel__head">
+            <div class="admin-panel__title">
+              📦 Kelola Produk
+              <span class="js-product-count" style="
+              font-size:.78rem;
+              background:rgba(245,200,66,.1);
+              color:var(--clr-yellow-dk);
+              padding:.1em .6em;
+              border-radius:99px;
+              margin-left:.5rem;
+            ">0</span>
+            </div>
+            <button class="btn-admin btn-admin-primary js-tab" data-tab="tab-add">➕ Tambah Produk</button>
+          </div>
+          <div class="admin-panel__body">
+            <div class="product-list" id="adminProductList">
+              <!-- populated by admin.js -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── TAB: ADD PRODUCT ── -->
+      <div class="admin-content js-tab-panel hidden" id="tab-add">
+        <div class="admin-panel" style="max-width:680px;">
+          <div class="admin-panel__head">
+            <div class="admin-panel__title">➕ Tambah Produk Baru</div>
+          </div>
+          <div class="admin-panel__body">
+            <form class="admin-form" id="addProductForm" novalidate>
+
+              <!-- Name -->
+              <div class="form-group">
+                <label class="form-label" for="productName">Nama Produk *</label>
+                <input type="text" id="productName" class="form-input" placeholder="Contoh: Lampu LED Downlight 10W"
+                  maxlength="120" required>
+              </div>
+
+              <!-- Description -->
+              <div class="form-group">
+                <label class="form-label" for="productDesc">Deskripsi Produk *</label>
+                <textarea id="productDesc" class="form-input"
+                  placeholder="Deskripsikan produk secara singkat dan jelas…" rows="4" maxlength="500"
+                  required></textarea>
+              </div>
+
+              <!-- Image Upload -->
+              <div class="form-group">
+                <label class="form-label">Foto Produk (opsional)</label>
+                <div class="img-upload-area" id="uploadArea">
+                  <input type="file" id="imgUpload" accept="image/*" aria-label="Upload foto produk">
+                  <div class="img-upload-icon" aria-hidden="true">📷</div>
+                  <div class="img-upload-text">
+                    Klik atau drag &amp; drop gambar di sini<br>
+                    <small>JPG, PNG, WebP — Maks. 5MB</small>
+                  </div>
+                  <img id="imgPreview" class="img-upload-preview" alt="Preview gambar produk">
+                </div>
+              </div>
+
+              <!-- Submit -->
+              <div style="display:flex;gap:.8rem;flex-wrap:wrap;">
+                <button type="submit" class="btn-admin btn-admin-primary" id="submitProductBtn">
+                  ✓ Simpan Produk
+                </button>
+                <button type="reset" class="btn-admin btn-admin-ghost" id="resetProductBtn">
+                  ✕ Reset
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /admin-main -->
+  </div><!-- /admin-layout -->
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase.js"></script>
+  <script src="../js/storage.js"></script>
+  <script src="../js/products.js"></script>
+  <script src="../js/admin.js"></script>
+  <script>
+    /* ── Tab title sync ── */
+    const titles = {
+      'tab-overview': '📊 Overview',
+      'tab-products': '📦 Kelola Produk',
+      'tab-add': '➕ Tambah Produk',
+    };
+    document.querySelectorAll('.js-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const t = titles[btn.dataset.tab];
+        if (t) document.getElementById('adminHeaderTitle').textContent = t;
+
+        // Smooth scroll to the target tab panel
+        const targetPanel = document.getElementById(btn.dataset.tab);
+        if (targetPanel) {
+          setTimeout(() => {
+            targetPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 50); // slight delay so panel is visible before scrolling
+        }
+      });
+    });
+
+  </script>
+
+</body>
+
+</html>

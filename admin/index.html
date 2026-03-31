@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login — Suryalampu</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔐</text></svg>">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body class="admin-login-body">
+
+  <div class="login-card" role="main">
+
+    <!-- Logo -->
+    <div class="login-card__logo">
+      <div class="login-card__logo-icon" aria-hidden="true">💡</div>
+      <div class="login-card__logo-text">
+        Suryalampu
+        <small>Admin Panel</small>
+      </div>
+    </div>
+
+    <h1>Masuk ke Dashboard</h1>
+    <p>Gunakan kredensial admin Anda untuk melanjutkan.</p>
+
+    <!-- Login Form -->
+    <form id="loginForm" novalidate>
+
+      <div class="form-group">
+        <label class="form-label" for="adminUsername">Username</label>
+        <input
+          type="text"
+          id="adminUsername"
+          name="username"
+          class="form-input"
+          placeholder="Masukkan username"
+          autocomplete="username"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="adminPassword">Password</label>
+        <input
+          type="password"
+          id="adminPassword"
+          name="password"
+          class="form-input"
+          placeholder="••••••••"
+          autocomplete="current-password"
+          required
+        >
+      </div>
+
+      <p id="loginError" class="form-error" role="alert" aria-live="polite"></p>
+
+      <button type="submit" id="loginBtn" class="btn-login">Masuk →</button>
+
+    </form>
+
+    <p style="text-align:center;margin-top:1.5rem;font-size:.8rem;color:rgba(255,255,255,.25);">
+      <a href="/" style="color:rgba(255,255,255,.3);">← Kembali ke toko</a>
+    </p>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase.js"></script>
+  <script src="../js/storage.js"></script>
+  <script src="../js/admin.js"></script>
+
+</body>
+</html>

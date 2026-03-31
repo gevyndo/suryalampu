@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Semua Produk — Suryalampu</title>
+  <meta name="description" content="Temukan semua produk lampu, kabel, saklar, dan perlengkapan elektrikal di Suryalampu. Harga kompetitif, kualitas terjamin.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💡</text></svg>">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/products.css">
+
+  <style>
+    body { background: var(--clr-beige); }
+
+    /* Page header */
+    .page-header {
+      background: linear-gradient(135deg, var(--clr-dark) 0%, #3A2010 50%, #1A1210 100%);
+      padding: calc(var(--navbar-h) + 3.5rem) 0 3.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px; height: 400px;
+      background: radial-gradient(ellipse, rgba(245,200,66,.12) 0%, transparent 70%);
+    }
+    .page-header__tag  { color: var(--clr-yellow); }
+    .page-header__title { color: #fff; }
+    .page-header__sub  { color: rgba(255,255,255,.5); margin-inline: auto; }
+    .page-header .divider { margin-inline: auto; }
+
+    /* Main content wrapper */
+    .page-body {
+      padding: 3rem 0 6rem;
+    }
+
+    /* Filter bar */
+    .filter-bar {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+    .filter-bar__label {
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--clr-gray);
+    }
+    .filter-chip {
+      padding: .4em 1em;
+      border-radius: 99px;
+      font-size: .83rem;
+      font-weight: 500;
+      border: 1.5px solid rgba(200,185,165,.5);
+      background: #fff;
+      color: var(--clr-dark-md);
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: var(--font-main);
+    }
+    .filter-chip:hover, .filter-chip.active {
+      border-color: var(--clr-yellow-dk);
+      background: var(--clr-yellow);
+      color: var(--clr-dark);
+    }
+
+    /* Count badge */
+    .product-count {
+      font-size: .85rem;
+      color: var(--clr-gray);
+      margin-bottom: 1.8rem;
+    }
+    .product-count strong { color: var(--clr-dark); }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════ NAVBAR ══════════════════════════════════ -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="container navbar__inner">
+      <a href="/" class="navbar__logo" aria-label="Suryalampu Home">
+        <div class="navbar__logo-icon" aria-hidden="true">💡</div>
+        <div class="navbar__logo-text">
+          <span class="navbar__logo-name">Suryalampu</span>
+          <span class="navbar__logo-sub">Elektrikal Terpercaya</span>
+        </div>
+      </a>
+
+      <ul class="navbar__links" role="list">
+        <li><a href="/"        class="navbar__link">Home</a></li>
+        <li><a href="/product" class="navbar__link active">Produk</a></li>
+        <li><a href="/#about"  class="navbar__link">About Us</a></li>
+        <li>
+          <a href="https://wa.me/6289510739261" target="_blank" rel="noopener"
+             class="navbar__link navbar__cta" id="navWaBtn">
+            💬 Contact
+          </a>
+        </li>
+      </ul>
+
+      <button class="navbar__hamburger" id="navHamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <div class="navbar__mobile" id="navMobile" role="menu">
+      <a href="/"        class="navbar__link" role="menuitem">🏠 Home</a>
+      <a href="/product" class="navbar__link active" role="menuitem">🛒 Produk</a>
+      <a href="/#about"  class="navbar__link" role="menuitem">ℹ️ About Us</a>
+      <a href="https://wa.me/6289510739261" target="_blank" rel="noopener"
+         class="navbar__link" role="menuitem">💬 Contact via WhatsApp</a>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════ PAGE HEADER ══════════════════════════════════ -->
+  <header class="page-header" aria-labelledby="productPageTitle">
+    <div class="container" style="position:relative;z-index:1;">
+      <span class="section-tag page-header__tag">Katalog Produk</span>
+      <h1 class="section-title page-header__title" id="productPageTitle" style="margin-top:.5rem;">
+        Semua Produk Kami
+      </h1>
+      <div class="divider page-header__divider"></div>
+      <p class="section-sub page-header__sub">
+        Temukan ribuan produk lampu dan elektrikal berkualitas dengan harga terbaik.
+      </p>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════ PRODUCTS ══════════════════════════════════ -->
+  <main class="page-body">
+    <div class="container">
+
+      <!-- Filter chips -->
+      <div class="filter-bar" role="group" aria-label="Filter produk">
+        <span class="filter-bar__label">Filter:</span>
+        <button class="filter-chip active" data-filter="all" id="filterAll">Semua</button>
+        <button class="filter-chip" data-filter="lampu" id="filterLampu">💡 Lampu</button>
+        <button class="filter-chip" data-filter="kabel" id="filterKabel">🔌 Kabel</button>
+        <button class="filter-chip" data-filter="saklar" id="filterSaklar">🔘 Saklar</button>
+        <button class="filter-chip" data-filter="panel" id="filterPanel">⚡ Panel</button>
+      </div>
+
+      <!-- Count -->
+      <p class="product-count" id="productCountText">
+        Menampilkan <strong id="productCountNum">0</strong> produk
+      </p>
+
+      <!-- Grid -->
+      <div class="products__grid" id="productGrid" role="list" aria-label="Daftar semua produk">
+        <!-- populated by JS -->
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ══════════════════════════════════ FOOTER ══════════════════════════════════ -->
+  <footer>
+    <div class="container">
+      <p style="font-size:1.5rem;margin-bottom:.5rem;" aria-hidden="true">💡</p>
+      <p><strong>Suryalampu</strong> — Toko Online Resmi <strong>Semesta Mandiri Jakarta</strong></p>
+      <p style="margin-top:.4rem;">📍 Plaza Kenari Mas, Jakarta Pusat</p>
+      <p style="margin-top:.4rem;">
+        <a href="https://wa.me/6289510739261" target="_blank" rel="noopener">💬 +62 895-1073-9261</a>
+      </p>
+      <p style="margin-top:1.5rem;font-size:.8rem;opacity:.4;">
+        &copy; <span id="year"></span> Suryalampu. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/products.js"></script>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* ── Navbar scroll & hamburger ── */
+    const navbar    = document.getElementById('navbar');
+    const hamburger = document.getElementById('navHamburger');
+    const mobileMenu = document.getElementById('navMobile');
+
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    hamburger?.addEventListener('click', () => {
+      const open = hamburger.classList.toggle('open');
+      mobileMenu?.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', open);
+    });
+
+    /* ── Product rendering with filter ── */
+    let allProducts   = [];
+    let currentFilter = 'all';
+
+    function getKeywordsForFilter(f) {
+      const map = {
+        lampu:  ['lampu','led','light','bohlam','fitting','gantung','emergency','spotlight'],
+        kabel:  ['kabel','cable','cord','nyy','nym','extension'],
+        saklar: ['saklar','switch','stop kontak','socket'],
+        panel:  ['panel','mcb','box','distribusi'],
+      };
+      return map[f] || [];
+    }
+
+    function filterAndRender() {
+      const grid     = document.getElementById('productGrid');
+      const countEl  = document.getElementById('productCountNum');
+      const filtered = currentFilter === 'all'
+        ? allProducts
+        : allProducts.filter(p => {
+            const kws = getKeywordsForFilter(currentFilter);
+            return kws.some(kw =>
+              p.name.toLowerCase().includes(kw) ||
+              (p.description || '').toLowerCase().includes(kw)
+            );
+          });
+      countEl.textContent = filtered.length;
+      renderProducts(grid, filtered);
+    }
+
+    /* Show loading state immediately */
+    document.getElementById('productGrid').innerHTML =
+      '<div class="empty-state"><div class="empty-state__icon" style="font-size:2rem;">⏳</div><p class="empty-state__sub">Memuat produk…</p></div>';
+
+    /* Async load from Supabase */
+    (async () => {
+      try {
+        allProducts = await loadProducts();
+        filterAndRender();
+      } catch (err) {
+        console.error(err);
+        document.getElementById('productGrid').innerHTML =
+          '<div class="empty-state"><div class="empty-state__icon">⚠️</div><h3 class="empty-state__title">Gagal memuat</h3><p class="empty-state__sub">Periksa koneksi internet Anda.</p></div>';
+      }
+    })();
+
+    /* Filter chips */
+    document.querySelectorAll('.filter-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        currentFilter = chip.dataset.filter;
+        filterAndRender();
+      });
+    });
+  </script>
+
+</body>
+</html>
