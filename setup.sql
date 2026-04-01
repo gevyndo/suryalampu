@@ -1,5 +1,5 @@
 -- ============================================================
--- Suryalampu — Supabase Setup SQL
+-- Suryamaslampu — Supabase Setup SQL
 -- Run this ONCE in Supabase SQL Editor
 -- ============================================================
 

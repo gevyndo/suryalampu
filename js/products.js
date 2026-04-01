@@ -44,7 +44,7 @@ function buildProductCard(product, showBadge = false) {
     ? `<img src="${product.image_url}" alt="${product.name}" class="product-card__img" loading="lazy">`
     : `<div class="product-card__placeholder">
          <span class="ph-icon">${icon}</span>
-         <span class="ph-label">Suryalampu</span>
+         <span class="ph-label">Suryamaslampu</span>
        </div>`;
 
   const badgeHtml = showBadge

@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Re-observe newly inserted reveal elements
       productGrid.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
     } catch (err) {
-      console.error('[Suryalampu] Failed to load products:', err);
+      console.error('[Suryamaslampu] Failed to load products:', err);
       productGrid.innerHTML = `
         <div class="empty-state">
           <div class="empty-state__icon">⚠️</div>

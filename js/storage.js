@@ -19,7 +19,7 @@ async function loadProducts() {
     .order('created_at', { ascending: true });
 
   if (error) {
-    console.error('[Suryalampu] loadProducts:', error.message);
+    console.error('[Suryamaslampu] loadProducts:', error.message);
     return [];
   }
   return data || [];
@@ -151,17 +151,17 @@ function extractStoragePath(publicUrl) {
 ────────────────────────────────────── */
 
 function isAdminLoggedIn() {
-  return sessionStorage.getItem('suryalampu_admin') === 'true';
+  return sessionStorage.getItem('suryamaslampu_admin') === 'true';
 }
 
 function adminLogin(username, password) {
   if (username === 'admin' && password === 'admin123') {
-    sessionStorage.setItem('suryalampu_admin', 'true');
+    sessionStorage.setItem('suryamaslampu_admin', 'true');
     return true;
   }
   return false;
 }
 
 function adminLogout() {
-  sessionStorage.removeItem('suryalampu_admin');
+  sessionStorage.removeItem('suryamaslampu_admin');
 }
