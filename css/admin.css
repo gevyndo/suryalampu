@@ -404,7 +404,7 @@
 .img-upload-preview {
   width: 100%;
   max-height: 200px;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: var(--radius-sm);
   display: none;
   margin-top: .75rem;
@@ -476,7 +476,7 @@
 .product-item__thumb {
   width: 60px; height: 60px;
   border-radius: var(--radius-sm);
-  object-fit: cover;
+  object-fit: contain;
   background: var(--clr-beige-md);
   flex-shrink: 0;
   border: 1px solid rgba(200,185,165,.4);

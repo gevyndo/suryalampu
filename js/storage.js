@@ -45,15 +45,17 @@ async function loadProductById(id) {
 }
 
 /**
- * Add a new product. Uploads image file if provided.
- * @param {{ name: string, description: string, imageFile: File|null }} param0
+ * Add a new product. Uploads image files if provided.
+ * @param {{ name: string, description: string, imageFiles: File[] }} param0
  * @returns {Promise<Object>} Inserted product row
  */
-async function addProduct({ name, description = '', imageFile = null }) {
-  // 1. Upload image to Supabase Storage (if a File was provided)
+async function addProduct({ name, description = '', imageFiles = [] }) {
+  // 1. Upload images to Supabase Storage (if Files were provided)
   let image_url = null;
-  if (imageFile instanceof File) {
-    image_url = await uploadProductImage(imageFile);
+  if (imageFiles && imageFiles.length > 0) {
+    const uploadPromises = imageFiles.map(file => uploadProductImage(file));
+    const urls = await Promise.all(uploadPromises);
+    image_url = urls.join(',');
   }
 
   // 2. Determine next position (append to end)
@@ -89,11 +91,13 @@ async function deleteProduct(id) {
     .eq('id', id)
     .maybeSingle();
 
-  // Delete image from storage bucket
+  // Delete images from storage bucket
   if (product?.image_url) {
-    const storagePath = extractStoragePath(product.image_url);
-    if (storagePath) {
-      await supabaseClient.storage.from(SUPABASE_BUCKET).remove([storagePath]);
+    const urls = product.image_url.split(',');
+    const pathsToRemove = urls.map(url => extractStoragePath(url.trim())).filter(p => p !== null);
+    
+    if (pathsToRemove.length > 0) {
+      await supabaseClient.storage.from(SUPABASE_BUCKET).remove(pathsToRemove);
     }
   }
 

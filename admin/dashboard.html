@@ -128,7 +128,7 @@
       <div class="admin-content js-tab-panel hidden" id="tab-products">
         <div class="admin-panel">
           <div class="admin-panel__head">
-            <div class="admin-panel__title">
+            <div class="admin-panel__title" style="display: flex; align-items: center; gap: 1rem;">
               📦 Kelola Produk
               <span class="js-product-count" style="
               font-size:.78rem;
@@ -136,8 +136,10 @@
               color:var(--clr-yellow-dk);
               padding:.1em .6em;
               border-radius:99px;
-              margin-left:.5rem;
             ">0</span>
+              <button class="btn-admin btn-admin-primary" id="saveOrderBtn" style="display: none; padding: 0.3em 0.8em; font-size: 0.85rem; margin-left: auto;">
+                💾 Simpan Urutan
+              </button>
             </div>
             <button class="btn-admin btn-admin-primary js-tab" data-tab="tab-add">➕ Tambah Produk</button>
           </div>
@@ -175,15 +177,15 @@
 
               <!-- Image Upload -->
               <div class="form-group">
-                <label class="form-label">Foto Produk (opsional)</label>
+                <label class="form-label">Foto Produk (Maks 3, opsional)</label>
                 <div class="img-upload-area" id="uploadArea">
-                  <input type="file" id="imgUpload" accept="image/*" aria-label="Upload foto produk">
+                  <input type="file" id="imgUpload" accept="image/*" multiple aria-label="Upload foto produk">
                   <div class="img-upload-icon" aria-hidden="true">📷</div>
                   <div class="img-upload-text">
                     Klik atau drag &amp; drop gambar di sini<br>
-                    <small>JPG, PNG, WebP — Maks. 5MB</small>
+                    <small>JPG, PNG, WebP — Maks 3 Gambar, @5MB</small>
                   </div>
-                  <img id="imgPreview" class="img-upload-preview" alt="Preview gambar produk">
+                  <div id="imgPreviewContainer" style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-top: 0.75rem;"></div>
                 </div>
               </div>
 

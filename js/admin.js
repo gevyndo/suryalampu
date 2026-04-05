@@ -69,6 +69,41 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
+  /* ── Save Reordered List ── */
+  const saveOrderBtn = document.getElementById('saveOrderBtn');
+  if (saveOrderBtn) {
+    saveOrderBtn.addEventListener('click', async () => {
+      const productListEl = document.getElementById('adminProductList');
+      if (!productListEl) return;
+      
+      const allItems = Array.from(productListEl.querySelectorAll('.product-item'));
+      
+      saveOrderBtn.disabled = true;
+      saveOrderBtn.textContent = '⏳ Menyimpan...';
+      productListEl.style.opacity = '0.5';
+      productListEl.style.pointerEvents = 'none';
+
+      try {
+        const updates = allItems.map((el, i) => ({
+          id: el.dataset.id,
+          position: i
+        }));
+        await updateProductsOrder(updates);
+        await renderAdminList();
+        showAdminToast('✓ Urutan berhasil disimpan!');
+        saveOrderBtn.style.display = 'none';
+      } catch(err) {
+         showAdminToast('Gagal menyimpan urutan: ' + err.message);
+         await renderAdminList(); // revert
+      } finally {
+        saveOrderBtn.disabled = false;
+        saveOrderBtn.textContent = '💾 Simpan Urutan';
+        productListEl.style.opacity = '1';
+        productListEl.style.pointerEvents = 'auto';
+      }
+    });
+  }
+
   /* ── Tab switching ── */
   const tabBtns   = document.querySelectorAll('.js-tab');
   const tabPanels = document.querySelectorAll('.js-tab-panel');
@@ -135,8 +170,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     productListEl.innerHTML = products.map((p, idx) => {
       const icon = typeof getProductIcon === 'function' ? getProductIcon(p.name) : '💡';
-      const thumbHtml = p.image_url
-        ? `<img src="${p.image_url}" alt="${escHtml(p.name)}" class="product-item__thumb">`
+      const firstImage = p.image_url ? p.image_url.split(',')[0].trim() : null;
+      const thumbHtml = firstImage
+        ? `<img src="${firstImage}" alt="${escHtml(p.name)}" class="product-item__thumb">`
         : `<div class="product-item__thumb-ph">${icon}</div>`;
 
       return `
@@ -249,26 +285,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else {
           this.before(draggedItem);
         }
-
-        // Calculate new order
-        const allItems = Array.from(productListEl.querySelectorAll('.product-item'));
         
-        productListEl.style.opacity = '0.5';
-        productListEl.style.pointerEvents = 'none';
-        showAdminToast('Menyimpan urutan baru...');
-
-        try {
-          const updates = allItems.map((el, i) => ({
-            id: el.dataset.id,
-            position: i
-          }));
-          await updateProductsOrder(updates);
-          await renderAdminList();
-          showAdminToast('✓ Urutan berhasil disimpan!');
-        } catch(err) {
-           showAdminToast('Gagal menyimpan urutan: ' + err.message);
-           await renderAdminList(); // revert
-        }
+        // Display save button explicitly
+        if (saveOrderBtn) saveOrderBtn.style.display = 'block';
       });
     });
   }
@@ -291,8 +310,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     el.innerHTML = products.slice(0, 3).map(p => {
       const icon = typeof getProductIcon === 'function' ? getProductIcon(p.name) : '💡';
-      const thumbHtml = p.image_url
-        ? `<img src="${p.image_url}" alt="${escHtml(p.name)}" class="product-item__thumb">`
+      const firstImage = p.image_url ? p.image_url.split(',')[0].trim() : null;
+      const thumbHtml = firstImage
+        ? `<img src="${firstImage}" alt="${escHtml(p.name)}" class="product-item__thumb">`
         : `<div class="product-item__thumb-ph">${icon}</div>`;
       return `<div class="product-item">
         ${thumbHtml}
@@ -309,28 +329,58 @@ document.addEventListener('DOMContentLoaded', async () => {
   /* ── Add Product Form ── */
   const addForm    = document.getElementById('addProductForm');
   const imgUpload  = document.getElementById('imgUpload');
-  const imgPreview = document.getElementById('imgPreview');
+  const imgPreviewContainer = document.getElementById('imgPreviewContainer');
   const uploadArea = document.getElementById('uploadArea');
 
-  let pendingImageFile = null; // File object (not data URL)
+  let pendingImageFiles = []; // Array of File objects
+
+  function renderPreviews() {
+    if (!imgPreviewContainer) return;
+    imgPreviewContainer.innerHTML = '';
+    pendingImageFiles.forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const img = document.createElement('img');
+        img.src = ev.target.result;
+        img.className = 'img-upload-preview';
+        img.style.display = 'block';
+        img.style.width = '100px';
+        img.style.height = '100px';
+        const imgContainer = document.createElement('div');
+        imgContainer.appendChild(img);
+        imgPreviewContainer.appendChild(imgContainer);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
 
   // Image preview
   imgUpload?.addEventListener('change', (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    if (!file.type.startsWith('image/')) { showAdminToast('File harus berupa gambar.'); return; }
-    if (file.size > 5 * 1024 * 1024) { showAdminToast('Gambar maksimal 5MB.'); return; }
-
-    pendingImageFile = file;
-
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-      if (imgPreview) {
-        imgPreview.src = ev.target.result;
-        imgPreview.style.display = 'block';
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
+    
+    // Add valid files up to limit of 3
+    let added = 0;
+    for (let file of files) {
+      if (pendingImageFiles.length >= 3) {
+        showAdminToast('Maksimal 3 gambar diperbolehkan.');
+        break;
       }
-    };
-    reader.readAsDataURL(file);
+      if (!file.type.startsWith('image/')) {
+        showAdminToast(`File ${file.name} bukan gambar.`);
+        continue;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        showAdminToast(`Gambar ${file.name} maksimal 5MB.`);
+        continue;
+      }
+      pendingImageFiles.push(file);
+      added++;
+    }
+    
+    // Clear input to allow re-selecting same files if removed
+    imgUpload.value = '';
+    if (added > 0) renderPreviews();
   });
 
   // Drag & drop
@@ -339,10 +389,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   uploadArea?.addEventListener('drop', (e) => {
     e.preventDefault();
     uploadArea.classList.remove('dragover');
-    const file = e.dataTransfer.files?.[0];
-    if (file && file.type.startsWith('image/')) {
-      const dt = new DataTransfer();
-      dt.items.add(file);
+    const files = Array.from(e.dataTransfer.files || []);
+    
+    const dt = new DataTransfer();
+    files.forEach(f => {
+      if (f.type.startsWith('image/')) dt.items.add(f);
+    });
+    
+    if (dt.files.length > 0) {
       imgUpload.files = dt.files;
       imgUpload.dispatchEvent(new Event('change'));
     }
@@ -350,8 +404,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Reset preview on form reset
   document.getElementById('resetProductBtn')?.addEventListener('click', () => {
-    pendingImageFile = null;
-    if (imgPreview) { imgPreview.src = ''; imgPreview.style.display = 'none'; }
+    pendingImageFiles = [];
+    if (imgPreviewContainer) imgPreviewContainer.innerHTML = '';
   });
 
   addForm?.addEventListener('submit', async (e) => {
@@ -363,16 +417,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!desc)  { showAdminToast('Deskripsi produk wajib diisi.'); return; }
 
     const submitBtn = document.getElementById('submitProductBtn');
-    submitBtn.textContent = pendingImageFile ? '📤 Mengupload gambar…' : '💾 Menyimpan…';
+    submitBtn.textContent = pendingImageFiles.length > 0 ? '📤 Mengupload gambar…' : '💾 Menyimpan…';
     submitBtn.disabled = true;
 
     try {
-      await addProduct({ name, description: desc, imageFile: pendingImageFile });
+      await addProduct({ name, description: desc, imageFiles: pendingImageFiles });
 
       // Reset form
       addForm.reset();
-      if (imgPreview) { imgPreview.src = ''; imgPreview.style.display = 'none'; }
-      pendingImageFile = null;
+      if (imgPreviewContainer) imgPreviewContainer.innerHTML = '';
+      pendingImageFiles = [];
 
       // Switch to product list and refresh
       switchTab('tab-products');
