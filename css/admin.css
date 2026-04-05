@@ -458,6 +458,20 @@
   border-color: rgba(232,160,32,.25);
   box-shadow: var(--shadow-sm);
 }
+.product-item.dragging {
+  opacity: 0.4;
+  transform: scale(0.98);
+  border-color: var(--clr-yellow-dk);
+  background: var(--clr-beige);
+}
+.product-item.drag-over-top {
+  border-top: 3px solid var(--clr-yellow-dk);
+  margin-top: 4px;
+}
+.product-item.drag-over-bottom {
+  border-bottom: 3px solid var(--clr-yellow-dk);
+  margin-bottom: 4px;
+}
 
 .product-item__thumb {
   width: 60px; height: 60px;

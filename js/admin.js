@@ -140,8 +140,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         : `<div class="product-item__thumb-ph">${icon}</div>`;
 
       return `
-        <div class="product-item" data-id="${p.id}">
-          <span class="drag-handle" title="Reorder">⠿</span>
+        <div class="product-item" data-id="${p.id}" draggable="true">
+          <span class="drag-handle" title="Reorder (Tahan & Geser)">⠿</span>
           ${thumbHtml}
           <div class="product-item__info">
             <div class="product-item__name">${escHtml(p.name)}</div>
@@ -196,6 +196,78 @@ document.addEventListener('DOMContentLoaded', async () => {
         } catch (err) {
           showAdminToast('Gagal menghapus: ' + err.message);
           await renderAdminList();
+        }
+      });
+    });
+
+    /* ── HTML5 Drag and Drop Reordering ── */
+    let draggedItem = null;
+    
+    productListEl.querySelectorAll('.product-item').forEach(item => {
+      item.addEventListener('dragstart', function(e) {
+        draggedItem = this;
+        setTimeout(() => this.classList.add('dragging'), 0);
+        e.dataTransfer.effectAllowed = 'move';
+      });
+
+      item.addEventListener('dragend', function() {
+        this.classList.remove('dragging');
+        draggedItem = null;
+        productListEl.querySelectorAll('.product-item').forEach(el => el.classList.remove('drag-over-top', 'drag-over-bottom'));
+      });
+
+      item.addEventListener('dragover', function(e) {
+        e.preventDefault(); // Necessary to allow dropping
+        if (this === draggedItem) return;
+        
+        const bounding = this.getBoundingClientRect();
+        const offset = bounding.y + (bounding.height / 2);
+        if (e.clientY - offset > 0) {
+          this.classList.add('drag-over-bottom');
+          this.classList.remove('drag-over-top');
+        } else {
+          this.classList.add('drag-over-top');
+          this.classList.remove('drag-over-bottom');
+        }
+      });
+
+      item.addEventListener('dragleave', function() {
+        this.classList.remove('drag-over-top', 'drag-over-bottom');
+      });
+
+      item.addEventListener('drop', async function(e) {
+        e.preventDefault();
+        this.classList.remove('drag-over-top', 'drag-over-bottom');
+        if (this === draggedItem) return;
+
+        const bounding = this.getBoundingClientRect();
+        const offset = bounding.y + (bounding.height / 2);
+        
+        // Move DOM element
+        if (e.clientY - offset > 0) {
+          this.after(draggedItem);
+        } else {
+          this.before(draggedItem);
+        }
+
+        // Calculate new order
+        const allItems = Array.from(productListEl.querySelectorAll('.product-item'));
+        
+        productListEl.style.opacity = '0.5';
+        productListEl.style.pointerEvents = 'none';
+        showAdminToast('Menyimpan urutan baru...');
+
+        try {
+          const updates = allItems.map((el, i) => ({
+            id: el.dataset.id,
+            position: i
+          }));
+          await updateProductsOrder(updates);
+          await renderAdminList();
+          showAdminToast('✓ Urutan berhasil disimpan!');
+        } catch(err) {
+           showAdminToast('Gagal menyimpan urutan: ' + err.message);
+           await renderAdminList(); // revert
         }
       });
     });

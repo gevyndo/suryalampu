@@ -26,6 +26,25 @@ async function loadProducts() {
 }
 
 /**
+ * Fetch a single product from Supabase by ID.
+ * @param {string} id 
+ * @returns {Promise<Object|null>}
+ */
+async function loadProductById(id) {
+  const { data, error } = await supabaseClient
+    .from('products')
+    .select('*')
+    .eq('id', id)
+    .maybeSingle();
+
+  if (error) {
+    console.error('[Suryamaslampu] loadProductById:', error.message);
+    return null;
+  }
+  return data;
+}
+
+/**
  * Add a new product. Uploads image file if provided.
  * @param {{ name: string, description: string, imageFile: File|null }} param0
  * @returns {Promise<Object>} Inserted product row
@@ -103,6 +122,21 @@ async function reorderProduct(id, direction) {
     supabaseClient.from('products').update({ position: b.position }).eq('id', a.id),
     supabaseClient.from('products').update({ position: a.position }).eq('id', b.id),
   ]);
+}
+
+/**
+ * Update the order/position of multiple products in bulk.
+ * Used for drag and drop reordering.
+ * @param {Array<{id: string, position: number}>} updates 
+ */
+async function updateProductsOrder(updates) {
+  // Supabase REST doesn't have a true 'batch update' for multiple rows with different data.
+  // The easiest approach is Promise.all for a small number of items.
+  const promises = updates.map(u => 
+    supabaseClient.from('products').update({ position: u.position }).eq('id', u.id)
+  );
+  
+  await Promise.all(promises);
 }
 
 /* ──────────────────────────────────────
