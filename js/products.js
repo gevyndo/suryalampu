@@ -40,7 +40,8 @@ function getProductIcon(name) {
  */
 function buildProductCard(product, showBadge = false) {
   const icon = getProductIcon(product.name);
-  const firstImage = product.image_url ? product.image_url.split(',')[0].trim() : null;
+  const urls = product.image_url ? product.image_url.split(',').map(u => u.trim()).filter(u => u.length > 0 && u.startsWith('http')) : [];
+  const firstImage = urls.length > 0 ? urls[0] : null;
   const mediaHtml = firstImage
     ? `<img src="${firstImage}" alt="${product.name}" class="product-card__img" loading="lazy">`
     : `<div class="product-card__placeholder">

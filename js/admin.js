@@ -170,7 +170,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     productListEl.innerHTML = products.map((p, idx) => {
       const icon = typeof getProductIcon === 'function' ? getProductIcon(p.name) : '💡';
-      const firstImage = p.image_url ? p.image_url.split(',')[0].trim() : null;
+      const urls = p.image_url ? p.image_url.split(',').map(u => u.trim()).filter(u => u.length > 0 && u.startsWith('http')) : [];
+      const firstImage = urls.length > 0 ? urls[0] : null;
       const thumbHtml = firstImage
         ? `<img src="${firstImage}" alt="${escHtml(p.name)}" class="product-item__thumb">`
         : `<div class="product-item__thumb-ph">${icon}</div>`;
@@ -310,7 +311,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     el.innerHTML = products.slice(0, 3).map(p => {
       const icon = typeof getProductIcon === 'function' ? getProductIcon(p.name) : '💡';
-      const firstImage = p.image_url ? p.image_url.split(',')[0].trim() : null;
+      const urls = p.image_url ? p.image_url.split(',').map(u => u.trim()).filter(u => u.length > 0 && u.startsWith('http')) : [];
+      const firstImage = urls.length > 0 ? urls[0] : null;
       const thumbHtml = firstImage
         ? `<img src="${firstImage}" alt="${escHtml(p.name)}" class="product-item__thumb">`
         : `<div class="product-item__thumb-ph">${icon}</div>`;
@@ -344,8 +346,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         img.src = ev.target.result;
         img.className = 'img-upload-preview';
         img.style.display = 'block';
-        img.style.width = '100px';
-        img.style.height = '100px';
+        img.style.width = '140px';
+        img.style.height = '140px';
         const imgContainer = document.createElement('div');
         imgContainer.appendChild(img);
         imgPreviewContainer.appendChild(imgContainer);
