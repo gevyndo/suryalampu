@@ -124,33 +124,6 @@
         </div>
       </div>
 
-      <!-- ── TAB: MANAGE PRODUCTS ── -->
-      <div class="admin-content js-tab-panel hidden" id="tab-products">
-        <div class="admin-panel">
-          <div class="admin-panel__head">
-            <div class="admin-panel__title" style="display: flex; align-items: center; gap: 1rem;">
-              📦 Kelola Produk
-              <span class="js-product-count" style="
-              font-size:.78rem;
-              background:rgba(245,200,66,.1);
-              color:var(--clr-yellow-dk);
-              padding:.1em .6em;
-              border-radius:99px;
-            ">0</span>
-              <button class="btn-admin btn-admin-primary" id="saveOrderBtn" style="display: none; padding: 0.3em 0.8em; font-size: 0.85rem; margin-left: auto;">
-                💾 Simpan Urutan
-              </button>
-            </div>
-            <button class="btn-admin btn-admin-primary js-tab" data-tab="tab-add">➕ Tambah Produk</button>
-          </div>
-          <div class="admin-panel__body">
-            <div class="product-list" id="adminProductList">
-              <!-- populated by admin.js -->
-            </div>
-          </div>
-        </div>
-      </div>
-
       <!-- ── TAB: ADD PRODUCT ── -->
       <div class="admin-content js-tab-panel hidden" id="tab-add">
         <div class="admin-panel" style="max-width:680px;">
@@ -200,6 +173,33 @@
               </div>
 
             </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── TAB: MANAGE PRODUCTS ── -->
+      <div class="admin-content js-tab-panel hidden" id="tab-products">
+        <div class="admin-panel">
+          <div class="admin-panel__head">
+            <div class="admin-panel__title" style="display: flex; align-items: center; gap: 1rem;">
+              📦 Kelola Produk
+              <span class="js-product-count" style="
+              font-size:.78rem;
+              background:rgba(245,200,66,.1);
+              color:var(--clr-yellow-dk);
+              padding:.1em .6em;
+              border-radius:99px;
+            ">0</span>
+              <button class="btn-admin btn-admin-primary" id="saveOrderBtn" style="display: none; padding: 0.3em 0.8em; font-size: 0.85rem; margin-left: auto;">
+                💾 Simpan Urutan
+              </button>
+            </div>
+            <button class="btn-admin btn-admin-primary js-tab" data-tab="tab-add">➕ Tambah Produk</button>
+          </div>
+          <div class="admin-panel__body">
+            <div class="product-list" id="adminProductList">
+              <!-- populated by admin.js -->
+            </div>
           </div>
         </div>
       </div>
