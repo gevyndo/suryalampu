@@ -174,10 +174,10 @@
         <div class="filter-bar" role="group" aria-label="Filter produk" style="margin-bottom: 0;">
           <span class="filter-bar__label">Filter:</span>
           <button class="filter-chip active" data-filter="all" id="filterAll">Semua</button>
-          <button class="filter-chip" data-filter="lampu" id="filterLampu">💡 Lampu</button>
-          <button class="filter-chip" data-filter="kabel" id="filterKabel">🔌 Kabel</button>
-          <button class="filter-chip" data-filter="saklar" id="filterSaklar">🔘 Saklar</button>
-          <button class="filter-chip" data-filter="panel" id="filterPanel">⚡ Panel</button>
+          <button class="filter-chip" data-filter="lampu-sorot">💡 Lampu Sorot</button>
+          <button class="filter-chip" data-filter="highbay">🏭 Highbay</button>
+          <button class="filter-chip" data-filter="lampu-jalan-listrik">🛣️ Lampu Jalan Listrik</button>
+          <button class="filter-chip" data-filter="lampu-jalan-solar">☀️ Lampu Jalan Solar</button>
         </div>
 
         <div class="search-bar">
@@ -250,16 +250,6 @@
     let currentPage = 1;
     const itemsPerPage = 12;
 
-    function getKeywordsForFilter(f) {
-      const map = {
-        lampu: ['lampu', 'led', 'light', 'bohlam', 'fitting', 'gantung', 'emergency', 'spotlight'],
-        kabel: ['kabel', 'cable', 'cord', 'nyy', 'nym', 'extension'],
-        saklar: ['saklar', 'switch', 'stop kontak', 'socket'],
-        panel: ['panel', 'mcb', 'box', 'distribusi'],
-      };
-      return map[f] || [];
-    }
-
     function filterAndRender() {
       const grid = document.getElementById('productGrid');
       const countEl = document.getElementById('productCountNum');
@@ -267,13 +257,7 @@
       // 1. Filter by category
       let filtered = currentFilter === 'all'
         ? allProducts
-        : allProducts.filter(p => {
-          const kws = getKeywordsForFilter(currentFilter);
-          return kws.some(kw =>
-            p.name.toLowerCase().includes(kw) ||
-            (p.description || '').toLowerCase().includes(kw)
-          );
-        });
+        : allProducts.filter(p => p.category === currentFilter);
 
       // 2. Filter by search query
       if (searchQuery.trim() !== '') {

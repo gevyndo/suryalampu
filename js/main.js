@@ -95,7 +95,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const productGrid = document.getElementById('productGrid');
   if (productGrid) {
     try {
-      const products = await loadProducts();
+      const category = productGrid.dataset.category || null;
+      const products = await loadProducts(category);
       renderProducts(productGrid, products, { limit: 4 });
       // Re-observe newly inserted reveal elements
       productGrid.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));

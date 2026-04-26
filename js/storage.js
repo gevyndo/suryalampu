@@ -11,12 +11,18 @@
  * Fetch all products from Supabase, ordered by position then created_at.
  * @returns {Promise<Array>}
  */
-async function loadProducts() {
-  const { data, error } = await supabaseClient
+async function loadProducts(category = null) {
+  let query = supabaseClient
     .from('products')
     .select('*')
     .order('position', { ascending: true })
     .order('created_at', { ascending: true });
+
+  if (category) {
+    query = query.eq('category', category);
+  }
+
+  const { data, error } = await query;
 
   if (error) {
     console.error('[Suryamaslampu] loadProducts:', error.message);
@@ -49,7 +55,7 @@ async function loadProductById(id) {
  * @param {{ name: string, description: string, imageFiles: File[] }} param0
  * @returns {Promise<Object>} Inserted product row
  */
-async function addProduct({ name, description = '', imageFiles = [] }) {
+async function addProduct({ name, description = '', imageFiles = [], category = 'general' }) {
   // 1. Upload images to Supabase Storage (if Files were provided)
   let image_url = null;
   if (imageFiles && imageFiles.length > 0) {
@@ -71,7 +77,7 @@ async function addProduct({ name, description = '', imageFiles = [] }) {
   // 3. Insert row
   const { data, error } = await supabaseClient
     .from('products')
-    .insert({ name: name.trim(), description: description.trim(), image_url, position })
+    .insert({ name: name.trim(), description: description.trim(), image_url, position, category })
     .select()
     .single();
 

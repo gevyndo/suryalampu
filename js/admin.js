@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const usernameEl = document.getElementById('adminUsername');
     const passwordEl = document.getElementById('adminPassword');
-    const errorEl    = document.getElementById('loginError');
-    const btnEl      = document.getElementById('loginBtn');
+    const errorEl = document.getElementById('loginError');
+    const btnEl = document.getElementById('loginBtn');
 
     loginForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -75,9 +75,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     saveOrderBtn.addEventListener('click', async () => {
       const productListEl = document.getElementById('adminProductList');
       if (!productListEl) return;
-      
+
       const allItems = Array.from(productListEl.querySelectorAll('.product-item'));
-      
+
       saveOrderBtn.disabled = true;
       saveOrderBtn.textContent = '⏳ Menyimpan...';
       productListEl.style.opacity = '0.5';
@@ -92,9 +92,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         await renderAdminList();
         showAdminToast('✓ Urutan berhasil disimpan!');
         saveOrderBtn.style.display = 'none';
-      } catch(err) {
-         showAdminToast('Gagal menyimpan urutan: ' + err.message);
-         await renderAdminList(); // revert
+      } catch (err) {
+        showAdminToast('Gagal menyimpan urutan: ' + err.message);
+        await renderAdminList(); // revert
       } finally {
         saveOrderBtn.disabled = false;
         saveOrderBtn.textContent = '💾 Simpan Urutan';
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   /* ── Tab switching ── */
-  const tabBtns   = document.querySelectorAll('.js-tab');
+  const tabBtns = document.querySelectorAll('.js-tab');
   const tabPanels = document.querySelectorAll('.js-tab-panel');
 
   function switchTab(tabId) {
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const titles = {
         'tab-overview': '📊 Overview',
         'tab-products': '📦 Kelola Produk',
-        'tab-add':      '➕ Tambah Produk',
+        'tab-add': '➕ Tambah Produk',
       };
       const t = titles[btn.dataset.tab];
       if (t) document.getElementById('adminHeaderTitle').textContent = t;
@@ -239,24 +239,24 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     /* ── HTML5 Drag and Drop Reordering ── */
     let draggedItem = null;
-    
+
     productListEl.querySelectorAll('.product-item').forEach(item => {
-      item.addEventListener('dragstart', function(e) {
+      item.addEventListener('dragstart', function (e) {
         draggedItem = this;
         setTimeout(() => this.classList.add('dragging'), 0);
         e.dataTransfer.effectAllowed = 'move';
       });
 
-      item.addEventListener('dragend', function() {
+      item.addEventListener('dragend', function () {
         this.classList.remove('dragging');
         draggedItem = null;
         productListEl.querySelectorAll('.product-item').forEach(el => el.classList.remove('drag-over-top', 'drag-over-bottom'));
       });
 
-      item.addEventListener('dragover', function(e) {
+      item.addEventListener('dragover', function (e) {
         e.preventDefault(); // Necessary to allow dropping
         if (this === draggedItem) return;
-        
+
         const bounding = this.getBoundingClientRect();
         const offset = bounding.y + (bounding.height / 2);
         if (e.clientY - offset > 0) {
@@ -268,25 +268,25 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
       });
 
-      item.addEventListener('dragleave', function() {
+      item.addEventListener('dragleave', function () {
         this.classList.remove('drag-over-top', 'drag-over-bottom');
       });
 
-      item.addEventListener('drop', async function(e) {
+      item.addEventListener('drop', async function (e) {
         e.preventDefault();
         this.classList.remove('drag-over-top', 'drag-over-bottom');
         if (this === draggedItem) return;
 
         const bounding = this.getBoundingClientRect();
         const offset = bounding.y + (bounding.height / 2);
-        
+
         // Move DOM element
         if (e.clientY - offset > 0) {
           this.after(draggedItem);
         } else {
           this.before(draggedItem);
         }
-        
+
         // Display save button explicitly
         if (saveOrderBtn) saveOrderBtn.style.display = 'block';
       });
@@ -329,8 +329,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   await renderOverviewList();
 
   /* ── Add Product Form ── */
-  const addForm    = document.getElementById('addProductForm');
-  const imgUpload  = document.getElementById('imgUpload');
+  const addForm = document.getElementById('addProductForm');
+  const imgUpload = document.getElementById('imgUpload');
   const imgPreviewContainer = document.getElementById('imgPreviewContainer');
   const uploadArea = document.getElementById('uploadArea');
 
@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   imgUpload?.addEventListener('change', (e) => {
     const files = Array.from(e.target.files || []);
     if (files.length === 0) return;
-    
+
     // Add valid files up to limit of 3
     let added = 0;
     for (let file of files) {
@@ -379,7 +379,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       pendingImageFiles.push(file);
       added++;
     }
-    
+
     // Clear input to allow re-selecting same files if removed
     imgUpload.value = '';
     if (added > 0) renderPreviews();
@@ -392,12 +392,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     e.preventDefault();
     uploadArea.classList.remove('dragover');
     const files = Array.from(e.dataTransfer.files || []);
-    
+
     const dt = new DataTransfer();
     files.forEach(f => {
       if (f.type.startsWith('image/')) dt.items.add(f);
     });
-    
+
     if (dt.files.length > 0) {
       imgUpload.files = dt.files;
       imgUpload.dispatchEvent(new Event('change'));
@@ -414,16 +414,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     e.preventDefault();
     const name = document.getElementById('productName')?.value.trim();
     const desc = document.getElementById('productDesc')?.value.trim();
+    const category = document.getElementById('productCategory')?.value || 'general';
 
     if (!name) { showAdminToast('Nama produk wajib diisi.'); return; }
-    if (!desc)  { showAdminToast('Deskripsi produk wajib diisi.'); return; }
+    if (!desc) { showAdminToast('Deskripsi produk wajib diisi.'); return; }
 
     const submitBtn = document.getElementById('submitProductBtn');
     submitBtn.textContent = pendingImageFiles.length > 0 ? '📤 Mengupload gambar…' : '💾 Menyimpan…';
     submitBtn.disabled = true;
 
     try {
-      await addProduct({ name, description: desc, imageFiles: pendingImageFiles });
+      await addProduct({ name, description: desc, imageFiles: pendingImageFiles, category });
 
       // Reset form
       addForm.reset();

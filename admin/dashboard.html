@@ -140,6 +140,18 @@
                   maxlength="120" required>
               </div>
 
+              <!-- Category -->
+              <div class="form-group">
+                <label class="form-label" for="productCategory">Kategori *</label>
+                <select id="productCategory" class="form-input" required>
+                  <option value="general">All</option>
+                  <option value="lampu-sorot">Lampu Sorot</option>
+                  <option value="highbay">Highbay</option>
+                  <option value="lampu-jalan-listrik">Lampu Jalan Listrik</option>
+                  <option value="lampu-jalan-solar">Lampu Jalan Solar</option>
+                </select>
+              </div>
+
               <!-- Description -->
               <div class="form-group">
                 <label class="form-label" for="productDesc">Deskripsi Produk *</label>
@@ -158,7 +170,9 @@
                     Klik atau drag &amp; drop gambar di sini<br>
                     <small>JPG, PNG, WebP — Maks 3 Gambar, @5MB</small>
                   </div>
-                  <div id="imgPreviewContainer" style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-top: 0.75rem;"></div>
+                  <div id="imgPreviewContainer"
+                    style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-top: 0.75rem;">
+                  </div>
                 </div>
               </div>
 
@@ -190,7 +204,8 @@
               padding:.1em .6em;
               border-radius:99px;
             ">0</span>
-              <button class="btn-admin btn-admin-primary" id="saveOrderBtn" style="display: none; padding: 0.3em 0.8em; font-size: 0.85rem; margin-left: auto;">
+              <button class="btn-admin btn-admin-primary" id="saveOrderBtn"
+                style="display: none; padding: 0.3em 0.8em; font-size: 0.85rem; margin-left: auto;">
                 💾 Simpan Urutan
               </button>
             </div>
