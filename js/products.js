@@ -2,7 +2,7 @@
    products.js — Render product cards from localStorage
    ============================================================ */
 
-const WA_NUMBER = '6282211121105';
+const WA_NUMBER = '6285157129511';
 const WA_BASE   = `https://wa.me/${WA_NUMBER}`;
 
 /**
