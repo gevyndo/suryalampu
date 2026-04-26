@@ -84,9 +84,12 @@ document.addEventListener('DOMContentLoaded', async () => {
       productListEl.style.pointerEvents = 'none';
 
       try {
+        // Extract original positions of the displayed items and sort them
+        const originalPositions = allItems.map(el => parseInt(el.dataset.position, 10)).sort((a, b) => a - b);
+
         const updates = allItems.map((el, i) => ({
           id: el.dataset.id,
-          position: i
+          position: originalPositions[i]
         }));
         await updateProductsOrder(updates);
         await renderAdminList();
@@ -145,6 +148,16 @@ document.addEventListener('DOMContentLoaded', async () => {
     return products;
   }
 
+  /* ── Filter Admin Product List ── */
+  let currentAdminFilter = 'all';
+  const adminFilterEl = document.getElementById('adminCategoryFilter');
+  if (adminFilterEl) {
+    adminFilterEl.addEventListener('change', async (e) => {
+      currentAdminFilter = e.target.value;
+      await renderAdminList();
+    });
+  }
+
   /* ── Render admin product list ── */
   const productListEl = document.getElementById('adminProductList');
 
@@ -156,7 +169,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       <span style="font-size:1.4rem;">⏳</span><br>Memuat produk…
     </div>`;
 
-    const products = await updateProductCount();
+    const allProducts = await updateProductCount();
+    const products = currentAdminFilter === 'all' 
+      ? allProducts 
+      : allProducts.filter(p => p.category === currentAdminFilter);
 
     if (products.length === 0) {
       productListEl.innerHTML = `
@@ -177,7 +193,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         : `<div class="product-item__thumb-ph">${icon}</div>`;
 
       return `
-        <div class="product-item" data-id="${p.id}" draggable="true">
+        <div class="product-item" data-id="${p.id}" data-position="${p.position}" draggable="true">
           <span class="drag-handle" title="Reorder (Tahan & Geser)">⠿</span>
           ${thumbHtml}
           <div class="product-item__info">
@@ -194,29 +210,23 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     /* Bind action buttons */
     productListEl.querySelectorAll('.js-move-up').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        btn.disabled = true;
-        try {
-          await reorderProduct(btn.dataset.id, 'up');
-          await renderAdminList();
-          showAdminToast('Urutan diperbarui.');
-        } catch (err) {
-          showAdminToast('Gagal mengubah urutan: ' + err.message);
-          btn.disabled = false;
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.product-item');
+        if (item.previousElementSibling) {
+          item.previousElementSibling.before(item);
+          const saveBtn = document.getElementById('saveOrderBtn');
+          if (saveBtn) saveBtn.style.display = 'block';
         }
       });
     });
 
     productListEl.querySelectorAll('.js-move-down').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        btn.disabled = true;
-        try {
-          await reorderProduct(btn.dataset.id, 'down');
-          await renderAdminList();
-          showAdminToast('Urutan diperbarui.');
-        } catch (err) {
-          showAdminToast('Gagal mengubah urutan: ' + err.message);
-          btn.disabled = false;
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.product-item');
+        if (item.nextElementSibling) {
+          item.nextElementSibling.after(item);
+          const saveBtn = document.getElementById('saveOrderBtn');
+          if (saveBtn) saveBtn.style.display = 'block';
         }
       });
     });
