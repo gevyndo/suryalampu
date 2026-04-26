@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Semua Produk — Suryamaslampu</title>
-  <meta name="description" content="Temukan semua produk lampu, kabel, saklar, dan perlengkapan elektrikal di Suryamaslampu. Harga kompetitif, kualitas terjamin.">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💡</text></svg>">
+  <meta name="description"
+    content="Temukan semua produk lampu, kabel, saklar, dan perlengkapan elektrikal di Suryamaslampu. Harga kompetitif, kualitas terjamin.">
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💡</text></svg>">
 
   <!-- CSS -->
   <link rel="stylesheet" href="css/main.css">
@@ -13,7 +16,9 @@
   <link rel="stylesheet" href="css/products.css">
 
   <style>
-    body { background: var(--clr-beige); }
+    body {
+      background: var(--clr-beige);
+    }
 
     /* Page header */
     .page-header {
@@ -23,22 +28,36 @@
       position: relative;
       overflow: hidden;
     }
+
     .page-header::before {
       content: '';
       position: absolute;
-      top: 50%; left: 50%;
+      top: 50%;
+      left: 50%;
       transform: translate(-50%, -50%);
-      width: 600px; height: 400px;
-      background: radial-gradient(ellipse, rgba(245,200,66,.12) 0%, transparent 70%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(245, 200, 66, .12) 0%, transparent 70%);
     }
+
     .page-header__tag {
-      background: rgba(245,200,66,.18);
-      border: 1px solid rgba(245,200,66,.35);
+      background: rgba(245, 200, 66, .18);
+      border: 1px solid rgba(245, 200, 66, .35);
       color: var(--clr-yellow);
     }
-    .page-header__title { color: #fff; }
-    .page-header__sub  { color: rgba(255,255,255,.5); margin-inline: auto; }
-    .page-header .divider { margin-inline: auto; }
+
+    .page-header__title {
+      color: #fff;
+    }
+
+    .page-header__sub {
+      color: rgba(255, 255, 255, .5);
+      margin-inline: auto;
+    }
+
+    .page-header .divider {
+      margin-inline: auto;
+    }
 
     /* Main content wrapper */
     .page-body {
@@ -53,24 +72,28 @@
       margin-bottom: 2.5rem;
       flex-wrap: wrap;
     }
+
     .filter-bar__label {
       font-size: .85rem;
       font-weight: 600;
       color: var(--clr-gray);
     }
+
     .filter-chip {
       padding: .4em 1em;
       border-radius: 99px;
       font-size: .83rem;
       font-weight: 500;
-      border: 1.5px solid rgba(200,185,165,.5);
+      border: 1.5px solid rgba(200, 185, 165, .5);
       background: #fff;
       color: var(--clr-dark-md);
       cursor: pointer;
       transition: var(--transition);
       font-family: var(--font-main);
     }
-    .filter-chip:hover, .filter-chip.active {
+
+    .filter-chip:hover,
+    .filter-chip.active {
       border-color: var(--clr-yellow-dk);
       background: var(--clr-yellow);
       color: var(--clr-dark);
@@ -82,9 +105,13 @@
       color: var(--clr-gray);
       margin-bottom: 1.8rem;
     }
-    .product-count strong { color: var(--clr-dark); }
+
+    .product-count strong {
+      color: var(--clr-dark);
+    }
   </style>
 </head>
+
 <body>
 
   <!-- ══════════════════════════════════ NAVBAR ══════════════════════════════════ -->
@@ -94,18 +121,18 @@
         <img src="image/logo.jpg" alt="Suryamas Logo" style="height: 38px; border-radius: 6px; object-fit: contain;">
         <div class="navbar__logo-text">
           <span class="navbar__logo-name">Suryamaslampu</span>
-          <span class="navbar__logo-sub">Elektrikal Terpercaya</span>
+          <span class="navbar__logo-sub">Supplier Lampu Terbaik</span>
         </div>
       </a>
 
       <ul class="navbar__links" role="list">
-        <li><a href="/"        class="navbar__link">Home</a></li>
+        <li><a href="/" class="navbar__link">Home</a></li>
         <li><a href="/product" class="navbar__link active">Produk</a></li>
-        <li><a href="/#about"  class="navbar__link">About Us</a></li>
+        <li><a href="/#about" class="navbar__link">About Us</a></li>
         <li>
-          <a href="https://wa.me/6282211121105" target="_blank" rel="noopener"
-             class="navbar__link navbar__cta" id="navWaBtn">
-            💬 Contact
+          <a href="https://wa.me/6282211121105" target="_blank" rel="noopener" class="navbar__link navbar__cta"
+            id="navWaBtn">
+            💬 Konsultasi Gratis
           </a>
         </li>
       </ul>
@@ -116,11 +143,11 @@
     </div>
 
     <div class="navbar__mobile" id="navMobile" role="menu">
-      <a href="/"        class="navbar__link" role="menuitem">🏠 Home</a>
+      <a href="/" class="navbar__link" role="menuitem">🏠 Home</a>
       <a href="/product" class="navbar__link active" role="menuitem">🛒 Produk</a>
-      <a href="/#about"  class="navbar__link" role="menuitem">ℹ️ About Us</a>
-      <a href="https://wa.me/6282211121105" target="_blank" rel="noopener"
-         class="navbar__link" role="menuitem">💬 Contact via WhatsApp</a>
+      <a href="/#about" class="navbar__link" role="menuitem">ℹ️ About Us</a>
+      <a href="https://wa.me/6282211121105" target="_blank" rel="noopener" class="navbar__link" role="menuitem">💬
+        Contact via WhatsApp</a>
     </div>
   </nav>
 
@@ -152,10 +179,10 @@
           <button class="filter-chip" data-filter="saklar" id="filterSaklar">🔘 Saklar</button>
           <button class="filter-chip" data-filter="panel" id="filterPanel">⚡ Panel</button>
         </div>
-        
+
         <div class="search-bar">
-          <input type="text" id="searchInput" placeholder="Cari produk (contoh: LED)..." 
-                 style="padding: 0.8rem 1.2rem; width: 100%; max-width: 400px; border-radius: 99px; border: 1.5px solid rgba(200,185,165,.5); font-family: inherit; font-size: 0.95rem; background: #fff;" />
+          <input type="text" id="searchInput" placeholder="Cari produk (contoh: LED)..."
+            style="padding: 0.8rem 1.2rem; width: 100%; max-width: 400px; border-radius: 99px; border: 1.5px solid rgba(200,185,165,.5); font-family: inherit; font-size: 0.95rem; background: #fff;" />
         </div>
       </div>
 
@@ -168,9 +195,10 @@
       <div class="products__grid" id="productGrid" role="list" aria-label="Daftar semua produk">
         <!-- populated by JS -->
       </div>
-      
+
       <!-- Pagination -->
-      <div class="pagination" id="paginationControls" style="display: flex; justify-content: center; align-items: center; gap: 0.5rem; margin-top: 3rem;">
+      <div class="pagination" id="paginationControls"
+        style="display: flex; justify-content: center; align-items: center; gap: 0.5rem; margin-top: 3rem;">
         <!-- populated by JS -->
       </div>
 
@@ -181,7 +209,7 @@
   <footer>
     <div class="container">
       <p style="font-size:1.5rem;margin-bottom:.5rem;" aria-hidden="true">💡</p>
-      <p><strong>Suryamaslampu</strong> — Toko Online Resmi <strong>Semesta Mandiri Jakarta</strong></p>
+      <p><strong>Suryamaslampu</strong> — Supplier Lampu Terpercaya <strong>Semesta Mandiri Jakarta</strong></p>
       <p style="margin-top:.4rem;">📍 Lokasi LTC Glodok, Jakarta Barat</p>
       <p style="margin-top:.4rem;">
         <a href="https://wa.me/6282211121105" target="_blank" rel="noopener">💬 0822-1112-1105</a>
@@ -201,7 +229,7 @@
     document.getElementById('year').textContent = new Date().getFullYear();
 
     /* ── Navbar scroll & hamburger ── */
-    const navbar    = document.getElementById('navbar');
+    const navbar = document.getElementById('navbar');
     const hamburger = document.getElementById('navHamburger');
     const mobileMenu = document.getElementById('navMobile');
 
@@ -216,53 +244,53 @@
     });
 
     /* ── Product rendering with filter & pagination ── */
-    let allProducts   = [];
+    let allProducts = [];
     let currentFilter = 'all';
-    let searchQuery   = '';
-    let currentPage   = 1;
+    let searchQuery = '';
+    let currentPage = 1;
     const itemsPerPage = 12;
 
     function getKeywordsForFilter(f) {
       const map = {
-        lampu:  ['lampu','led','light','bohlam','fitting','gantung','emergency','spotlight'],
-        kabel:  ['kabel','cable','cord','nyy','nym','extension'],
-        saklar: ['saklar','switch','stop kontak','socket'],
-        panel:  ['panel','mcb','box','distribusi'],
+        lampu: ['lampu', 'led', 'light', 'bohlam', 'fitting', 'gantung', 'emergency', 'spotlight'],
+        kabel: ['kabel', 'cable', 'cord', 'nyy', 'nym', 'extension'],
+        saklar: ['saklar', 'switch', 'stop kontak', 'socket'],
+        panel: ['panel', 'mcb', 'box', 'distribusi'],
       };
       return map[f] || [];
     }
 
     function filterAndRender() {
-      const grid     = document.getElementById('productGrid');
-      const countEl  = document.getElementById('productCountNum');
-      
+      const grid = document.getElementById('productGrid');
+      const countEl = document.getElementById('productCountNum');
+
       // 1. Filter by category
       let filtered = currentFilter === 'all'
         ? allProducts
         : allProducts.filter(p => {
-            const kws = getKeywordsForFilter(currentFilter);
-            return kws.some(kw =>
-              p.name.toLowerCase().includes(kw) ||
-              (p.description || '').toLowerCase().includes(kw)
-            );
-          });
-          
+          const kws = getKeywordsForFilter(currentFilter);
+          return kws.some(kw =>
+            p.name.toLowerCase().includes(kw) ||
+            (p.description || '').toLowerCase().includes(kw)
+          );
+        });
+
       // 2. Filter by search query
       if (searchQuery.trim() !== '') {
         const q = searchQuery.toLowerCase().trim();
-        filtered = filtered.filter(p => 
-          p.name.toLowerCase().includes(q) || 
+        filtered = filtered.filter(p =>
+          p.name.toLowerCase().includes(q) ||
           (p.description || '').toLowerCase().includes(q)
         );
       }
-      
+
       countEl.textContent = filtered.length;
-      
+
       // 3. Pagination
       const totalPages = Math.ceil(filtered.length / itemsPerPage) || 1;
       if (currentPage > totalPages) currentPage = totalPages;
       if (currentPage < 1) currentPage = 1;
-      
+
       const startIndex = (currentPage - 1) * itemsPerPage;
       const endIndex = startIndex + itemsPerPage;
       const paginatedItems = filtered.slice(startIndex, endIndex);
@@ -270,35 +298,35 @@
       renderProducts(grid, paginatedItems);
       renderPagination(totalPages);
     }
-    
+
     function renderPagination(totalPages) {
       const paginationEl = document.getElementById('paginationControls');
       if (totalPages <= 1) {
         paginationEl.innerHTML = '';
         return;
       }
-      
+
       let html = '';
-      
+
       // Prev button
       html += `<button class="filter-chip" style="padding: 0.3em 0.8em;" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>&laquo; Prev</button>`;
-      
+
       // Page numbers
       for (let i = 1; i <= totalPages; i++) {
         if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
-           html += `<button class="filter-chip ${i === currentPage ? 'active' : ''}" style="padding: 0.3em 0.8em;" onclick="goToPage(${i})">${i}</button>`;
+          html += `<button class="filter-chip ${i === currentPage ? 'active' : ''}" style="padding: 0.3em 0.8em;" onclick="goToPage(${i})">${i}</button>`;
         } else if (i === currentPage - 2 || i === currentPage + 2) {
-           html += `<span style="color: var(--clr-gray)">...</span>`;
+          html += `<span style="color: var(--clr-gray)">...</span>`;
         }
       }
-      
+
       // Next button
       html += `<button class="filter-chip" style="padding: 0.3em 0.8em;" onclick="goToPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>Next &raquo;</button>`;
-      
+
       paginationEl.innerHTML = html;
     }
-    
-    window.goToPage = function(page) {
+
+    window.goToPage = function (page) {
       currentPage = page;
       filterAndRender();
       // Scroll up to grid top smoothly
@@ -331,7 +359,7 @@
         filterAndRender();
       });
     });
-    
+
     /* Search Input Event */
     const searchInput = document.getElementById('searchInput');
     if (searchInput) {
@@ -344,23 +372,110 @@
   </script>
 
   <!-- ── Floating WhatsApp Button ── -->
-  <a href="https://wa.me/6282211121105" target="_blank" rel="noopener noreferrer"
-     class="wa-fab" aria-label="Chat via WhatsApp">
-    <svg class="wa-fab__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.297-.497.1-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  <a href="https://wa.me/6282211121105" target="_blank" rel="noopener noreferrer" class="wa-fab"
+    aria-label="Chat via WhatsApp">
+    <svg class="wa-fab__icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.297-.497.1-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
     </svg>
     <span class="wa-fab__tooltip">Chat dengan kami!</span>
   </a>
   <style>
-    .wa-fab{position:fixed;bottom:24px;right:24px;z-index:9999;width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.45);text-decoration:none;transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s ease;animation:waFabPulse 2.8s ease-in-out infinite}
-    .wa-fab:hover{transform:scale(1.12);box-shadow:0 8px 32px rgba(37,211,102,.6);animation:none}
-    @keyframes waFabPulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,.45)}50%{box-shadow:0 4px 28px rgba(37,211,102,.75),0 0 0 8px rgba(37,211,102,.12)}}
-    .wa-fab__icon{width:30px;height:30px;flex-shrink:0}
-    .wa-fab__tooltip{position:absolute;right:calc(100% + 12px);top:50%;transform:translateY(-50%) translateX(6px);background:#111;color:#fff;font-size:.78rem;font-weight:600;white-space:nowrap;padding:.4em .85em;border-radius:8px;opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease}
-    .wa-fab__tooltip::after{content:'';position:absolute;left:100%;top:50%;transform:translateY(-50%);border:6px solid transparent;border-left-color:#111}
-    .wa-fab:hover .wa-fab__tooltip{opacity:1;transform:translateY(-50%) translateX(0)}
-    @media(max-width:640px){.wa-fab{width:50px;height:50px;bottom:20px;right:16px}.wa-fab__icon{width:26px;height:26px}.wa-fab__tooltip{display:none}}
+    .wa-fab {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #25D366;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, .45);
+      text-decoration: none;
+      transition: transform .25s cubic-bezier(.34, 1.56, .64, 1), box-shadow .25s ease;
+      animation: waFabPulse 2.8s ease-in-out infinite
+    }
+
+    .wa-fab:hover {
+      transform: scale(1.12);
+      box-shadow: 0 8px 32px rgba(37, 211, 102, .6);
+      animation: none
+    }
+
+    @keyframes waFabPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 4px 20px rgba(37, 211, 102, .45)
+      }
+
+      50% {
+        box-shadow: 0 4px 28px rgba(37, 211, 102, .75), 0 0 0 8px rgba(37, 211, 102, .12)
+      }
+    }
+
+    .wa-fab__icon {
+      width: 30px;
+      height: 30px;
+      flex-shrink: 0
+    }
+
+    .wa-fab__tooltip {
+      position: absolute;
+      right: calc(100% + 12px);
+      top: 50%;
+      transform: translateY(-50%) translateX(6px);
+      background: #111;
+      color: #fff;
+      font-size: .78rem;
+      font-weight: 600;
+      white-space: nowrap;
+      padding: .4em .85em;
+      border-radius: 8px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease
+    }
+
+    .wa-fab__tooltip::after {
+      content: '';
+      position: absolute;
+      left: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 6px solid transparent;
+      border-left-color: #111
+    }
+
+    .wa-fab:hover .wa-fab__tooltip {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0)
+    }
+
+    @media(max-width:640px) {
+      .wa-fab {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        right: 16px
+      }
+
+      .wa-fab__icon {
+        width: 26px;
+        height: 26px
+      }
+
+      .wa-fab__tooltip {
+        display: none
+      }
+    }
   </style>
 
 </body>
+
 </html>
