@@ -64,15 +64,15 @@ async function addProduct({ name, description = '', imageFiles = [], category = 
     image_url = urls.join(',');
   }
 
-  // 2. Determine next position (append to end)
-  const { data: last } = await supabaseClient
+  // 2. Determine next position (prepend to top)
+  const { data: first } = await supabaseClient
     .from('products')
     .select('position')
-    .order('position', { ascending: false })
+    .order('position', { ascending: true })
     .limit(1)
     .maybeSingle();
 
-  const position = (last?.position ?? -1) + 1;
+  const position = (first?.position ?? 0) - 1;
 
   // 3. Insert row
   const { data, error } = await supabaseClient
