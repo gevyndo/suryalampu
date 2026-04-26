@@ -194,24 +194,20 @@
       <!-- ── TAB: MANAGE PRODUCTS ── -->
       <div class="admin-content js-tab-panel hidden" id="tab-products">
         <div class="admin-panel">
-          <div class="admin-panel__head" style="flex-wrap: wrap; gap: 1rem;">
-            <div class="admin-panel__title" style="display: flex; align-items: center; gap: 1rem;">
-              📦 Kelola Produk
-              <span class="js-product-count" style="
-              font-size:.78rem;
-              background:rgba(245,200,66,.1);
-              color:var(--clr-yellow-dk);
-              padding:.1em .6em;
-              border-radius:99px;
-            ">0</span>
-              <button class="btn-admin btn-admin-primary" id="saveOrderBtn"
-                style="display: none; padding: 0.3em 0.8em; font-size: 0.85rem; margin-left: auto;">
-                💾 Simpan Urutan
-              </button>
+          <div class="admin-panel__head" style="display: flex; flex-direction: column; gap: 1rem; align-items: flex-start;">
+            <!-- Top Row: Title and Add Button -->
+            <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+              <div class="admin-panel__title" style="display: flex; align-items: center; gap: 1rem;">
+                📦 Kelola Produk
+                <span class="js-product-count" style="font-size:.78rem; background:rgba(245,200,66,.1); color:var(--clr-yellow-dk); padding:.1em .6em; border-radius:99px;">0</span>
+              </div>
+              <button class="btn-admin btn-admin-primary js-tab" data-tab="tab-add">➕ Tambah Produk</button>
             </div>
-            <div style="display: flex; gap: 0.8rem; align-items: center; margin-left: auto;">
-              <select id="adminCategoryFilter" class="form-input"
-                style="padding: 0.4em 0.8em; font-size: 0.85rem; width: auto; min-width: 150px;">
+            
+            <!-- Bottom Row: Filter and Save Button -->
+            <div style="display: flex; width: 100%; gap: 1rem; align-items: center; background: rgba(0,0,0,0.2); padding: 0.8rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+              <label for="adminCategoryFilter" style="font-weight: 600; font-size: 0.9rem;">Filter Kategori:</label>
+              <select id="adminCategoryFilter" class="form-input" style="max-width: 300px; font-size: 0.9rem;">
                 <option value="all">Semua Produk</option>
                 <option value="lampu-sorot">Lampu Sorot</option>
                 <option value="highbay">Highbay</option>
@@ -219,7 +215,10 @@
                 <option value="lampu-jalan-solar">Lampu Jalan Solar</option>
                 <option value="general">Umum</option>
               </select>
-              <button class="btn-admin btn-admin-primary js-tab" data-tab="tab-add">➕ Tambah Produk</button>
+              
+              <button class="btn-admin btn-admin-primary" id="saveOrderBtn" style="display: none; margin-left: auto; padding: 0.4em 1em; font-size: 0.85rem;">
+                💾 Simpan Urutan
+              </button>
             </div>
           </div>
           <div class="admin-panel__body">
