@@ -80,11 +80,53 @@
   z-index: 2;
 }
 
-/* Content */
-.hero__content {
+/* Content Layout */
+.hero__layout {
   position: relative;
   z-index: 3;
-  max-width: 720px;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding-top: 2.5rem; /* prevents overlap */
+}
+
+.hero__content {
+  flex: 1.2;
+  max-width: 600px;
+}
+
+.hero__visual {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero__image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 16px;
+  animation: fadeInUp .8s .4s ease both;
+  /* removing the dark box shadow since it will be transparent */
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));
+}
+
+@media (max-width: 900px) {
+  .hero__layout {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+    padding-top: 1rem;
+  }
+  .hero__eyebrow {
+    margin-inline: auto;
+  }
+  .hero__actions {
+    justify-content: center;
+  }
+  .hero__sub {
+    margin-inline: auto;
+  }
 }
 
 .hero__eyebrow {
@@ -94,13 +136,13 @@
   background: rgba(245,200,66,.18);
   border: 1px solid rgba(245,200,66,.35);
   color: var(--clr-yellow);
-  font-size: .8rem;
+  font-size: .75rem;
   font-weight: 600;
   letter-spacing: .1em;
   text-transform: uppercase;
-  padding: .4em 1.1em;
+  padding: .35em .9em;
   border-radius: 99px;
-  margin-bottom: 1.6rem;
+  margin-bottom: 1.2rem;
   backdrop-filter: blur(8px);
   animation: fadeInUp .7s ease both;
 }
@@ -117,12 +159,12 @@
 }
 
 .hero__title {
-  font-size: clamp(2.2rem, 5.5vw, 4rem);
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
   font-weight: 800;
-  line-height: 1.12;
-  letter-spacing: -.03em;
+  line-height: 1.15;
+  letter-spacing: -.02em;
   color: #fff;
-  margin-bottom: 1.4rem;
+  margin-bottom: 1rem;
   animation: fadeInUp .8s .1s ease both;
 }
 .hero__title em {
@@ -134,11 +176,11 @@
 }
 
 .hero__sub {
-  font-size: clamp(1rem, 1.8vw, 1.18rem);
-  color: rgba(255,255,255,.75);
-  max-width: 520px;
-  margin-bottom: 2.4rem;
-  line-height: 1.7;
+  font-size: clamp(0.95rem, 1.5vw, 1.05rem);
+  color: rgba(255,255,255,.8);
+  max-width: 500px;
+  margin-bottom: 1.8rem;
+  line-height: 1.6;
   animation: fadeInUp .8s .2s ease both;
 }
 
